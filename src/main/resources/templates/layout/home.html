@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html th:lang="${#locale}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Techtonic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .top-bar {
+            background: linear-gradient(135deg, #283c86, #45a247);
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            position: relative;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #d3d3d3, #2c3e50);
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 24px;
+            color: #fff;
+            margin: 0;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #555;
+            color: #f0f0f0;
+        }
+
+        .header-icons a {
+            color: #fff;
+            font-size: 18px;
+            margin-left: 20px;
+        }
+
+        .promo-bar {
+            background: linear-gradient(135deg, #1a1a1a, #b22222);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .logos-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 5px;
+            position: absolute;
+            top: -50px;
+            right: 90px;
+        }
+
+        .logos-container img {
+            width: 30px;
+            height: auto;
+        }
+
+        .info-search-section {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #283c86;
+            color: #fff;
+            font-size: 16px;
+            align-items: center;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-bar p {
+            color: #fff;
+            margin: 0;
+        }
+
+        .search-bar select,
+        .search-bar input[type="text"],
+        .search-bar button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .search-bar select {
+            background-color: #fff;
+            color: #333;
+        }
+
+        .search-bar input[type="text"] {
+            width: 200px;
+        }
+
+        .search-bar button {
+            background-color: #45a247;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        footer {
+            background-color: #f9f9f9;
+            color: #888;
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            border-top: 1px solid #ddd;
+            position: relative;
+        }
+
+        .language-select {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 14px;
+            color: #555;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            display: inline-block;
+            padding: 5px 10px;
+        }
+
+        .language-select a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #3498db;
+        }
+
+        .language-select a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <p th:text="#{topbar.welcome}">Bienvenido, usted puede iniciar sesión o crear una cuenta</p>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <h1 class="logo">
+                <span th:text="#{header.logo}">Techtonic</span> <span class="logo-icon">⚙️</span>
+            </h1>
+            <nav>
+                <ul class="menu">
+                    <li><a th:href="@{/computadoras}" th:text="#{header.nav.computadoras}">Computadoras</a></li>
+                    <li><a th:href="@{/componentes}" th:text="#{header.nav.componentes}">Componentes</a></li>
+                    <li><a th:href="@{/perifericos}" th:text="#{header.nav.perifericos}">Periféricos</a></li>     
+                    <li><a th:href="@{/accesorios}" th:text="#{header.nav.accesorios}">Accesorios</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <a th:href="@{/}" ><i class="fas fa-user"></i></a>
+                <a th:href="@{/carrito}" ><i class="fas fa-shopping-cart"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="promo-bar">
+        <p th:text="#{promo.bar.text}">Todo para tu PC y más: rendimiento al máximo.</p>
+        <div class="logos-container">
+            <a th:href="@{/comentarios}">
+                <img src="/css/img/buzon.png" th:attr="alt=#{promo.bar.comments}" alt="Centro de Comentarios" />
+            </a>
+            <a th:href="@{/pagar}">
+                <img src="/css/img/pago-con-tarjetas-de-credito.png" th:attr="alt=#{promo.bar.payment}" alt="Pago con Tarjetas de Crédito" />
+            </a>
+        </div>
+    </div>
+
+    <main>
+        <div class="banner">
+            <img src="/css/img/Captura de pantalla 2024-10-18 085502.png" alt="Banner"/>
+        </div>
+        <div class="info-search-section">
+            <div class="contact-info">
+                <p><i class="fas fa-phone"></i> 2790-00-01-02-03</p>
+                <p><i class="fas fa-envelope"></i> techtonic23@com.cr</p>
+                <p th:text="#{info.noiva}">NO cobramos IVA ;)</p>
+            </div>
+            <div class="search-bar">
+                <p th:text="#{search.title}">Busque sus mejores productos</p>
+                <select>
+                    <option th:text="#{search.allcategories}">Todas las categorías</option>
+                </select>
+                <input type="text" th:placeholder="#{search.button}" placeholder="Buscar">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p th:text="#{footer.terms}">Condiciones de uso | Aviso © 2024-2024 Techtonic.com, Inc.</p>
+    </footer>
+
+
+</body>
+</html>

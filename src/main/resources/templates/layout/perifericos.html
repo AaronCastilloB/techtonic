@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Periféricos</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: linear-gradient(135deg, #5c258d, #4389a2);
+            color: #fff;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: #fff;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 10px;
+        }
+
+        .nav-bar a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s ease-in-out;
+        }
+
+        .nav-bar a:hover {
+            background-color: #fff;
+            color: #333;
+            transform: translateY(-5px);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .componentes-title {
+            font-size: 22px;
+            font-weight: normal;
+            margin-top: 15px;
+            color: #fff;
+        }
+
+        .filters-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            gap: 10px;
+        }
+
+        .filters-container input {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 150px;
+        }
+
+        .filters-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #5c258d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .filters-container button:hover {
+            background-color: #4389a2;
+            transform: translateY(-2px);
+        }
+
+        .componentes-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+            background-color: #f8f8f8;
+            margin: 20px auto;
+            width: 80%;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .componente {
+            text-align: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+        }
+
+        .componente:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .componente img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .componente p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            color: #666;
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="/home" class="logo">Techtonic</a>
+    <div class="nav-bar">
+        <a href="/computadoras">Computadoras</a>
+        <a href="/componentes">Componentes</a>
+        <a href="/perifericos">Periféricos</a>
+        <a href="/accesorios">Accesorios</a>
+    </div>
+    <div class="componentes-title">Periféricos</div>
+</header>
+
+<main>
+    <div class="filters-container">
+        <input type="number" id="minPriceInput" placeholder="Precio mínimo">
+        <input type="number" id="maxPriceInput" placeholder="Precio máximo">
+        <button onclick="filterItems()">Aplicar Filtro</button>
+        <button onclick="resetFilter()">Resetear Filtro</button>
+    </div>
+
+    <div class="componentes-container" id="componentesContainer">
+        <!-- Artículos -->
+        <div class="componente">
+            <img src="/css/img/perifericos/353-3536615_gamepad-png-game-controller-transparent-png.png" alt="">
+            <p>Control</p>
+            <p class="price">$40</p>
+            <button onclick="addToCart('Control', 40)">Agregar al carrito</button>
+        </div>
+        <div class="componente">
+            <img src="/css/img/perifericos/mw1-iso_640x480.png" alt="">
+            <p>Webcam</p>
+            <p class="price">$500</p>
+            <button onclick="addToCart('Webcam', 500)">Agregar al carrito</button>
+        </div>
+        <div class="componente">
+            <img src="/css/img/perifericos/png-clipart-computer-mouse-logitech.png" alt="">
+            <p>Mouse</p>
+            <p class="price">$1400</p>
+            <button onclick="addToCart('Mouse', 1400)">Agregar al carrito</button>
+        </div>
+        <div class="componente">
+            <img src="/css/img/perifericos/keyboard.png" alt="">
+            <p>Teclado</p>
+            <p class="price">$60</p>
+            <button onclick="addToCart('Teclado', 60)">Agregar al carrito</button>
+        </div>
+        <div class="componente">
+            <img src="/css/img/perifericos/headphones.png" alt="">
+            <p>Audífonos</p>
+            <p class="price">$80</p>
+            <button onclick="addToCart('Audífonos', 80)">Agregar al carrito</button>
+        </div>
+        <div class="componente">
+            <img src="/css/img/perifericos/microphone.png" alt="">
+            <p>Micrófono</p>
+            <p class="price">$100</p>
+            <button onclick="addToCart('Micrófono', 100)">Agregar al carrito</button>
+        </div>
+    </div>
+</main>
+
+<footer>
+    Condiciones de uso | Aviso © 2024 Techtonic.com, Inc.
+</footer>
+
+<script>
+    function addToCart(name, price) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push({ name, price });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${name} ha sido agregado al carrito.`);
+    }
+
+    function filterItems() {
+        const minPrice = parseInt(document.getElementById('minPriceInput').value) || 0;
+        const maxPrice = parseInt(document.getElementById('maxPriceInput').value) || Infinity;
+        const items = document.querySelectorAll('.componente');
+        items.forEach(item => {
+            const price = parseInt(item.querySelector('.price').textContent.replace('$', ''));
+            if (price >= minPrice && price <= maxPrice) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    function resetFilter() {
+        const items = document.querySelectorAll('.componente');
+        items.forEach(item => item.style.display = 'block');
+    }
+</script>
+
+</body>
+</html>

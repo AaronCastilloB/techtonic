@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techtonic - Inicio</title>
+    <style>
+        /* Estilos base del index */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        h1.logo {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 32px;
+            color: #3498db;
+        }
+
+        .logo-icon {
+            color: #2980b9;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .login-form input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .login-form button {
+            padding: 12px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-form button:hover {
+            background-color: #2980b9;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .register-text {
+            text-align: center;
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        .language-select {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 14px;
+            color: #555;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            display: inline-block;
+            padding: 5px 10px;
+        }
+
+        .language-select a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #3498db;
+        }
+
+        .language-select a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box"> 
+            <h1 class="logo">Techtonic <span class="logo-icon">⚙️</span></h1>
+            
+            <!-- Formulario de inicio de sesión -->
+            <form class="login-form" th:action="@{/home}" method="GET">
+                <input type="text" th:placeholder="#{login.phone}" required>
+                <input type="password" th:placeholder="#{login.password}" required>
+                <button type="submit" th:text="#{login.button}">Iniciar Sesión</button>
+            </form>
+      
+            <div class="divider">
+                <span></span> O <span></span>
+            </div>
+            
+            <p class="register-text">
+                <span th:text="#{login.noaccount}">¿No tiene una cuenta?</span> 
+                <a th:href="@{/registro}" th:text="#{login.signup}">Regístrese.</a>
+            </p>
+            <p class="footer-text" th:text="#{login.footer}">Condiciones de uso | Aviso © 2024 Techtonic.com, Inc.</p>
+        </div>
+    </div>
+
+    <!-- Enlaces para cambiar el idioma -->
+    <div class="language-select">
+        <a href="?lang=es" th:text="#{login.language} + ' (ES)'">Español</a> |
+        <a href="?lang=en" th:text="#{login.language} + ' (EN)'">English</a>
+    </div>
+</body>
+</html>
+
+
+<script>
+    document.getElementById('spanish').addEventListener('click', function() {
+        location.reload(); 
+    });
+
+    document.getElementById('english').addEventListener('click', function() {
+        document.body.innerHTML = document.body.innerHTML.replace('Número de teléfono, Email o Nombre de usuario', 'Phone number, Email, or Username')
+                                                          .replace('Contraseña', 'Password')
+                                                          .replace('Iniciar Sesión', 'Log In')
+                                                          .replace('¿No tiene una cuenta?', "Don't have an account?")
+                                                          .replace('Regístrese.', 'Sign Up.');
+        document.getElementById('language-select').textContent = 'English (US) ▼';
+    });
+</script>
+
+</body>
+</html>
