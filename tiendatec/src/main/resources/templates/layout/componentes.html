@@ -1,0 +1,310 @@
+<!DOCTYPE html> 
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{page.title.componentes}">Componentes</title>
+        <link rel="stylesheet" href="/css/style.css"> 
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+            }
+
+            header {
+                background: linear-gradient(135deg, #5c258d, #4389a2);
+                color: #fff;
+                padding: 15px 20px;
+                text-align: center;
+                box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+                position: relative;
+            }
+
+            .logo {
+                font-size: 28px;
+                font-weight: bold;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+                color: #fff;
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                text-decoration: none;
+            }
+
+            .logo:hover {
+                color: #f8f8f8;
+                cursor: pointer;
+            }
+
+            .nav-bar {
+                display: flex;
+                justify-content: center;
+                gap: 25px;
+                margin-top: 10px;
+            }
+
+            .nav-bar a {
+                color: #fff;
+                text-decoration: none;
+                font-size: 18px;
+                font-weight: 600;
+                padding: 10px 20px;
+                border-radius: 5px;
+                background-color: transparent;
+                transition: background-color 0.3s, transform 0.2s ease-in-out;
+            }
+
+            .nav-bar a:hover {
+                background-color: #fff;
+                color: #333;
+                transform: translateY(-5px);
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            .componentes-title {
+                font-size: 22px;
+                font-weight: normal;
+                margin-top: 15px;
+                color: #fff;
+            }
+
+          .filters-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    gap: 10px;
+}
+
+.filters-container input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 150px;
+}
+
+.filters-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #5c258d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.filters-container button:hover {
+    background-color: #4389a2;
+    transform: translateY(-2px);
+}
+
+            .componentes-container {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+                max-height: 90vh;
+                overflow-y: auto;
+                padding: 20px;
+                background-color: #f8f8f8;
+                margin: 20px auto;
+                width: 80%;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .componente {
+                text-align: center;
+                padding: 15px;
+                border: 1px solid #ddd;
+                background-color: #fff;
+                border-radius: 8px;
+                transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+            }
+
+            .componente:hover {
+                transform: scale(1.05);
+                box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            .componente img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 4px;
+            }
+
+            .componente p {
+                margin: 5px 0;
+                font-size: 16px;
+                color: #333;
+            }
+
+            .componente img {
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
+                object-position: center;
+                border-radius: 4px;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .componente {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                height: 300px;
+                border: 1px solid #ddd;
+                padding: 10px;
+                background-color: #fff;
+                border-radius: 4px;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #5c258d;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.2s ease;
+            }
+
+            button:hover {
+                background-color: #4389a2;
+                transform: translateY(-2px);
+            }
+
+            footer {
+                text-align: center;
+                padding: 15px;
+                font-size: 14px;
+                color: #666;
+                background-color: #333;
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+        <a href="/home" class="logo" th:text="#{site.logo}">Techtonic</a>
+        <div class="nav-bar">
+            <a href="/computadoras" th:text="#{menu.computadoras}">Computadoras</a>
+            <a href="/componentes" th:text="#{menu.componentes}">Componentes</a>
+            <a href="/perifericos" th:text="#{menu.perifericos}">Periféricos</a>
+            <a href="/accesorios" th:text="#{menu.accesorios}">Accesorios</a>
+        </div>
+        <div class="componentes-title" th:text="#{section.title.componentes}">Componentes</div>
+    </header>
+        <<main>
+    <div class="filters-container">
+            <input type="number" id="minPriceInput" th:placeholder="#{filter.minPrice}" placeholder="Precio mínimo">
+            <input type="number" id="maxPriceInput" th:placeholder="#{filter.maxPrice}" placeholder="Precio máximo">
+            <button onclick="filterItems()" th:text="#{filter.apply}">Aplicar Filtro</button>
+            <button onclick="resetFilter()" th:text="#{filter.reset}">Resetear Filtro</button>
+    </div>
+            <div class="componentes-container">
+    <div class="componente" data-price="700">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ85tx6wD_5qMGvXsV8Ar480kEb5FmYooj2A&s" alt="RTX 4090"/>
+        <p>RTX 4090</p>
+        <p>$700</p>
+        <button th:text="#{button.addToCart}" 
+                        onclick="addToCart('RTX 4090', 700, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ85tx6wD_5qMGvXsV8Ar480kEb5FmYooj2A&s')">Agregar al carrito</button>
+    </div>
+    <div class="componente" data-price="500">
+        <img src="https://extremetechcr.com/tienda/36218/msi-nvidia-geforce-rtx-4080-super-gaming-x-slim-16g.jpg" alt="RTX 4080"/>
+        <p>RTX 4080</p>
+        <p>$500</p>
+        <button th:text="#{button.addToCart}" 
+                        onclick="addToCart('RTX 4080', 500, 'https://extremetechcr.com/tienda/36218/msi-nvidia-geforce-rtx-4080-super-gaming-x-slim-16g.jpg')">Agregar al carrito</button>
+    </div>
+    <div class="componente" data-price="1400">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7rBfmergfpNB7WJKCQAfbU0Hmw2feU6ytYA&s" alt="RTX 4070"/>
+        <p>RTX 4070</p>
+        <p>$1400</p>
+        <button th:text="#{button.addToCart}" 
+                        onclick="addToCart('RTX 4070', 1400, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7rBfmergfpNB7WJKCQAfbU0Hmw2feU6ytYA&s')">Agregar al carrito</button>
+    </div>
+    <div class="componente" data-price="400">
+        <img src="https://m.media-amazon.com/images/I/71PSxIuhYJL._AC_SL1500_.jpg" alt="RX 7600 XT"/>
+        <p>RX 7600 XT</p>
+        <p>$400</p>
+        <button th:text="#{button.addToCart}" 
+                        onclick="addToCart('RX 7600 XT', 400, 'https://m.media-amazon.com/images/I/71PSxIuhYJL._AC_SL1500_.jpg')">Agregar al carrito</button>
+    </div>
+    <div class="componente" data-price="300">
+        <img src="https://m.media-amazon.com/images/I/71Exns6BrvL._AC_SL1500_.jpg" alt="RX 6600 XT"/>
+        <p>RX 6600 XT</p>
+        <p>$300</p>
+        <button th:text="#{button.addToCart}" 
+                        onclick="addToCart('RX 6600 XT', 300, 'https://m.media-amazon.com/images/I/71Exns6BrvL._AC_SL1500_.jpg')">Agregar al carrito</button>
+    </div>
+    <div class="componente" data-price="600">
+        <img src="https://faithtechnologycr.com/wp-content/uploads/2024/04/ASUS-DUAL-RADEON-RX-7800-XT-16-GB-OC.jpg" alt="RX 7800 XT"/>
+        <p>RX 7800 XT</p>
+        <p>$600</p>
+        <button th:text="#{button.addToCart}" 
+                        onclick="addToCart('RX 7800 XT', 600, 'https://faithtechnologycr.com/wp-content/uploads/2024/04/ASUS-DUAL-RADEON-RX-7800-XT-16-GB-OC.jpg')">Agregar al carrito</button>
+    </div>
+
+
+            </div>
+        </main>
+        <footer>
+    <p th:text="#{footer.notice}">Condiciones de uso | Aviso © 2024 Techtonic.com, Inc.</p>
+        </footer>
+
+        <script>
+             function renderProducts() {
+        const container = document.getElementById('componentes-container');
+        container.innerHTML = '';
+        productos.forEach(product => {
+            const productoHTML = `
+                <div class="componente">
+                    <img src="${product.img}" alt="${product.name}" />
+                    <p>${product.name}</p>
+                    <p>$${product.price}</p>
+                    <button onclick="addToCart('${product.name}', ${product.price}, '${product.img}')">Agregar al carrito</button>
+                </div>
+            `;
+            container.innerHTML += productoHTML;
+        });
+    }
+
+   
+    function filterItems() {
+        const minPrice = parseInt(document.getElementById('minPriceInput').value) || 0;
+        const maxPrice = parseInt(document.getElementById('maxPriceInput').value) || Infinity;
+        const items = document.querySelectorAll('.componente');
+        items.forEach(item => {
+            const price = parseInt(item.querySelector('.price').textContent.replace('$', ''));
+            if (price >= minPrice && price <= maxPrice) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    function resetFilter() {
+        const items = document.querySelectorAll('.componente');
+        items.forEach(item => item.style.display = 'block');
+    }
+
+    function addToCart(name, price, img) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push({ name, price, img });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(name + " " + (document.documentElement.lang === 'es' ? 'ha sido agregado al carrito.' : 'has been added to the cart.'));
+    }
+
+    // Render inicial
+    renderProducts();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html th:lang="${#locale}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{comments.center.title}">Centro de Comentarios - Techtonic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .top-bar {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 24px;
+            color: #000;
+            margin: 0;
+        }
+
+        .header-icons a {
+            color: #000;
+            font-size: 18px;
+            margin-left: 20px;
+        }
+
+        .comment-center-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .comment-center-container h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #e5e5e5;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #1d4ed8;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .submit-btn:hover {
+            background-color: #1e40af;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <p th:text="#{topbar.welcome}">Bienvenido, usted puede iniciar sesión o crear una cuenta</p>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <h1 class="logo">
+                <a th:href="@{/home}" style="text-decoration: none; color: inherit;" th:text="#{site.name}">Techtonic</a>
+                <span class="logo-icon">⚙️</span>
+            </h1>
+            <div class="header-icons">
+                <a th:href="@{/home}"><i class="fas fa-home"></i></a>
+                <a href="#"><i class="fas fa-user"></i></a>
+                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="comment-center-container">
+        <h2 th:text="#{comments.center.header}">Centros de Comentarios:</h2>
+        <form th:action="@{/comments/submit}" method="post">
+            <div class="form-group">
+                <label for="name" th:text="#{comments.label.name}">Nombre Completo:</label>
+                <input type="text" id="name" name="name" th:placeholder="#{comments.placeholder.name}" required>
+            </div>
+            <div class="form-group">
+                <label for="cedula" th:text="#{comments.label.cedula}">Cédula:</label>
+                <input type="text" id="cedula" name="cedula" th:placeholder="#{comments.placeholder.cedula}" required>
+            </div>
+            <div class="form-group">
+                <label for="email" th:text="#{comments.label.email}">Correo:</label>
+                <input type="email" id="email" name="email" th:placeholder="#{comments.placeholder.email}" required>
+            </div>
+            <div class="form-group">
+                <label for="message" th:text="#{comments.label.message}">Comentario o duda:</label>
+                <textarea id="message" name="message" th:placeholder="#{comments.placeholder.message}" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn" th:text="#{comments.button.submit}">Enviar Formulario</button>
+        </form>
+    </div>
+
+</body>
+</html>

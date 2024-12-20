@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Techtonic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .top-bar {
+            background: linear-gradient(135deg, #283c86, #45a247);
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            position: relative;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #d3d3d3, #2c3e50);
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 24px;
+            color: #fff;
+            margin: 0;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #555;
+            color: #f0f0f0;
+        }
+
+        /* Barra de promoción */
+        .promo-bar {
+            background: linear-gradient(135deg, #1a1a1a, #b22222);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        /* Contenedor de resultados */
+        #product-results {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .header-icons a {
+            color: #fff;
+            font-size: 18px;
+            margin-left: 20px;
+        }
+
+        .logos-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 5px;
+            position: absolute;
+            top: -50px;
+            right: 90px;
+        }
+
+        .logos-container img {
+            width: 30px;
+            height: auto;
+        }
+
+        .info-search-section {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #283c86;
+            color: #fff;
+            font-size: 16px;
+            align-items: center;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-bar p {
+            color: #fff;
+            margin: 0;
+        }
+
+        .search-bar select,
+        .search-bar input[type="text"],
+        .search-bar button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .search-bar select {
+            background-color: #fff;
+            color: #333;
+        }
+
+        .search-bar input[type="text"] {
+            width: 200px;
+        }
+
+        .search-bar button {
+            background-color: #45a247;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        footer {
+            background-color: #f9f9f9;
+            color: #888;
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            border-top: 1px solid #ddd;
+            position: relative;
+        }
+
+        .language-select {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 14px;
+            color: #555;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            display: inline-block;
+            padding: 5px 10px;
+        }
+
+        .language-select a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #3498db;
+        }
+
+        .language-select a:hover {
+            text-decoration: underline;
+        }
+
+        .producto {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .producto img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .producto h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .producto p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .producto button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            border: none;
+            background-color: #45a247;
+            color: #fff;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .producto button:hover {
+            background-color: #388e3c;
+        }
+
+        .cart {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 250px;
+        }
+
+        .cart h4 {
+            margin: 0 0 10px;
+            font-size: 16px;
+        }
+
+        .cart ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cart ul li {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .cart ul li:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar" th:text="#{welcome.message}">Bienvenido, usted puede iniciar sesión o crear una cuenta</div>
+
+    <header>
+        <div class="header-content">
+            <h1 class="logo">
+                Techtonic ⚙️
+            </h1>
+            <nav>
+                <ul class="menu">
+            <li><a th:href="@{/computadoras}" th:text="#{menu.computadoras}">Computadoras</a></li>
+            <li><a th:href="@{/componentes}" th:text="#{menu.componentes}">Componentes</a></li>
+            <li><a th:href="@{/perifericos}" th:text="#{menu.perifericos}">Periféricos</a></li>
+            <li><a th:href="@{/accesorios}" th:text="#{menu.accesorios}">Accesorios</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <a href="/"><i class="fas fa-user"></i></a>
+                <a href="/carrito"><i class="fas fa-shopping-cart"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="promo-bar">
+        <div class="promo-bar" th:text="#{promo.message}">Todo para tu PC y más: rendimiento al máximo.</div>
+        <div class="logos-container">
+            <a href="/comentarios">
+                <img src="/css/img/buzon.png" alt="Centro de Comentarios" />
+            </a>
+            <a href="/pagar">
+                <img src="/css/img/pago-con-tarjetas-de-credito.png" alt="Pago con Tarjetas de Crédito" />
+            </a>
+        </div>
+    </div>
+
+    <main>
+        <div class="banner">
+            <img src="/css/img/Captura de pantalla 2024-10-18 085502.png" alt="Banner"/>
+        </div>
+        <div class="info-search-section">
+            <div class="contact-info">
+                <p><i class="fas fa-phone"></i> 2790-00-01-02-03</p>
+                <p><i class="fas fa-envelope"></i> techtonic23@com.cr</p>
+                <p th:text="#{footer.iva}">NO cobramos IVA ;)</p>
+            </div>
+            <div class="search-bar">
+                <p th:text="#{search.prompt}">Busque sus mejores productos</p>
+            <select id="category-select">
+                <option value="" th:text="#{search.allCategories}">Todas las categorías</option>
+                <option value="computadoras" th:text="#{menu.computadoras}">Computadoras</option>
+                <option value="componentes" th:text="#{menu.componentes}">Componentes</option>
+                <option value="perifericos" th:text="#{menu.perifericos}">Periféricos</option>
+                <option value="accesorios" th:text="#{menu.accesorios}">Accesorios</option>
+            </select>
+
+            <input type="text" id="search-input" th:placeholder="#{search.placeholder}" placeholder="Buscar">
+            <button id="search-button">
+               <i class="fas fa-search"></i>
+               <span th:text="#{search.button}"></span>
+            </div>
+        </div>
+
+        <div id="product-results">
+            <!-- Los resultados de los productos se mostrarán aquí -->
+        </div>
+    </main>
+
+    <footer>
+        <p th:text="#{footer.message}">Condiciones de uso | Aviso © 2024-2024 Techtonic.com, Inc.</p>
+    </footer>
+    
+  <script>
+    // Lista corregida de productos
+    const productos = [
+    { nombre: "Mack Book", categoria: "computadoras", descripcion: "Una computadora portátil de alto rendimiento.", imagen: "https://i5.walmartimages.cl/asr/f16eb523-dc6a-47bf-97f8-152c25e3de29.1b99bff0c330b463adea83bea9b8723b.png?odnHeight=600&odnWidth=600&odnBg=ffffff", precio: 830 },
+    { nombre: "Adventoris", categoria: "computadoras", descripcion: "Computadora ideal para tareas profesionales y de diseño.", imagen: "https://tootoolbay.com/wp-content/uploads/2020/01/laptop-png-who-are-adventoris-4-1.png", precio: 790 },
+    { nombre: "Lenovo", categoria: "computadoras", descripcion: "Laptop con diseño delgado y potente.", imagen: "https://i5.walmartimages.com/seo/Restored-Lenovo-14-Laptop-PC-ThinkPad-T480-Core-i5-Processor-8GB-Memory-256GB-SSD-Webcam-Wi-Fi-HDMI-Windows-11-Notebook-Computer-Refurbished_98e1a4ba-1199-415d-bc94-f079d838ba0a.c35b41da85d6d69fb166bd84f4bee095.jpeg", precio: 1800 },
+    { nombre: "RTX 4090", categoria: "componentes", descripcion: "Tarjeta gráfica de última generación para gaming.", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ85tx6wD_5qMGvXsV8Ar480kEb5FmYooj2A&s", precio: 700 },
+    { nombre: "RTX 4080", categoria: "componentes", descripcion: "Tarjeta gráfica de alto rendimiento para jugadores exigentes.", imagen: "https://extremetechcr.com/tienda/36218/msi-nvidia-geforce-rtx-4080-super-gaming-x-slim-16g.jpg", precio: 500 },
+    { nombre: "RTX 4070", categoria: "componentes", descripcion: "Tarjeta gráfica de gama media para juegos y diseño.", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7rBfmergfpNB7WJKCQAfbU0Hmw2feU6ytYA&s", precio: 1400 },
+    { nombre: "RX 7600 XT", categoria: "componentes", descripcion: "Gráficos avanzados para juegos modernos.", imagen: "https://m.media-amazon.com/images/I/71PSxIuhYJL._AC_SL1500_.jpg", precio: 400 },
+    { nombre: "RX 6600 XT", categoria: "componentes", descripcion: "Excelente rendimiento a un precio competitivo.", imagen: "https://m.media-amazon.com/images/I/71Exns6BrvL._AC_SL1500_.jpg", precio: 300 },
+    { nombre: "RX 7800 XT", categoria: "componentes", descripcion: "Gráfica potente para gaming 4K.", imagen: "https://faithtechnologycr.com/wp-content/uploads/2024/04/ASUS-DUAL-RADEON-RX-7800-XT-16-GB-OC.jpg", precio: 600 },
+    { nombre: "Control", categoria: "Periféricos", descripcion: "Controlador inalámbrico para juegos.", imagen: "https://www.steren.cr/media/catalog/product/cache/532829604b379f478db69368d14615cd/image/21703fcd6/control-inalambrico-compatible-con-ps4.jpg", precio: 40 },
+    { nombre: "Webcam", categoria: "Periféricos", descripcion: "Cámara web para videollamadas y streaming.", imagen: "https://img.av-connection.com/2/AVimg_45689.jpg", precio: 500 },
+    { nombre: "Mouse", categoria: "Periféricos", descripcion: "Ratón ergonómico para uso diario.", imagen: "https://www.tiendaamiga.com.bo/media/catalog/product/cache/deb88dadd509903c96aaa309d3e790dc/c/0/c01010.jpg", precio: 1400 },
+    { nombre: "Teclado", categoria: "Periféricos", descripcion: "Teclado mecánico para mayor precisión.", imagen: "https://www.unimart.com/cdn/shop/files/HyperXTecladoAlambricoGamingMecanicoAlloyOrigins60_Ingles_8d6b7559-ef48-4aa2-b821-dc73d6495a1c.jpg?v=1693419650", precio: 60 },
+    { nombre: "Audífonos", categoria: "Periféricos", descripcion: "Auriculares con sonido envolvente.", imagen: "https://www.officedepot.co.cr/medias/35110.jpg-1200ftw?context=bWFzdGVyfHJvb3R8NDU3OTUzfGltYWdlL2pwZWd8YURaaUwyaGhZaTg1T0RjMk1ETTFNREV3TlRrd0xtcHdad3w1YzRkNDI5MjcwMWIyMDllNzRjOWVmY2Q0YmNjNDNhZTY5OWI4NTRiOWYyOGZkNzM4Njc1YzhmOTY3M2M3NmYw", precio: 80 },
+    { nombre: "Micrófono", categoria: "Periféricos", descripcion: "Micrófono profesional para grabaciones y streaming.", imagen: "https://cyberteamcr.com/wp-content/uploads/2024/01/61psvOxYHL-1.webp", precio: 100 },
+    { nombre: "Silla Gamer", categoria: "Accesorios", descripcion: "Comodidad y estilo para largas horas de juego.", imagen: "https://www.tiendamonge.com/media/catalog/product/s/i/silla-gamer-tuf-dj588-led-negro-192207.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700", precio: 35 },
+    { nombre: "Adaptador", categoria: "Accesorios", descripcion: "Adaptador universal para dispositivos electrónicos.", imagen: "https://www.officedepot.co.cr/medias/39775.jpg-1200ftw?context=bWFzdGVyfHJvb3R8MTA5MjIyfGltYWdlL2pwZWd8YUdGakwyZ3pOaTh4TVRRME9ESXlNVGt5TlRRd05pOHpPVGMzTlM1cWNHZGZNVEl3TUdaMGR3fDllYzc2ZjkwMGNmOTk4NTBiMzYyNjgzNzVhM2NiMTlmY2YwNzgxMmNlMTgxMWY5NzkyMzkxZWYzZTdiZWY3NGQ", precio: 10 },
+    { nombre: "Luz LED", categoria: "Accesorios", descripcion: "Luz LED para iluminación ambiental.", imagen: "https://m.media-amazon.com/images/I/81u+X6JkgFL._AC_SL1500_.jpg", precio: 20 },
+    { nombre: "Extensión de enchufe", categoria: "Accesorios", descripcion: "Extensión eléctrica con múltiples puertos.", imagen: "https://eherp.biz.ua/Uploads/Pictures/EH-NFW-5.3ex_4.jpg", precio: 10 },
+    { nombre: "Control de ventilador", categoria: "Accesorios", descripcion: "Dispositivo para regular la velocidad del ventilador.", imagen: "https://www.mytek.com.mx/wp-content/uploads/2021/03/5_product_Tower_Fan_3430_900x900px.jpg", precio: 40 },
+    { nombre: "Aire comprimido", categoria: "Accesorios", descripcion: "Limpieza fácil para dispositivos electrónicos.", imagen: "https://www.officedepot.co.cr/medias/23824.gif-300ftw?context=bWFzdGVyfHJvb3R8MTY2ODV8aW1hZ2UvZ2lmfGFEZzFMMmd6WlM4NU16WTBNRGN3TWpZNE9UVTRMbWRwWmd8NTljNTMxNGEzOTYxMGE2ODZmN2EwZmY5NDM3NjNkMzVmMTc2ODc1NDJiMTU5ZjJmNWJkY2E4M2NlYWExNjg1MA", precio: 3 },
+    { nombre: "HDMI 1 metro", categoria: "Accesorios", descripcion: "Cable HDMI de alta velocidad.", imagen: "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/130369768_01/w=800,h=800,fit=pad", precio: 1.5 },
+    { nombre: "Encapsulador", categoria: "Accesorios", descripcion: "Protección para componentes electrónicos.", imagen: "https://btcr.cr/wp-content/uploads/2022/06/arg-ac-1038.png", precio: 5 },
+    { nombre: "Pasta térmica", categoria: "Accesorios", descripcion: "Pasta térmica de alta conductividad.", imagen: "https://www.gdcomputadoras.com/3645-large_default/pasta-termica.jpg", precio: 4 },
+    { nombre: "Hp Omen", categoria: "computadoras", descripcion: "Laptop gaming de alta gama.", imagen: "https://m.media-amazon.com/images/I/81mqj7ISVmL.jpg", precio: 860 },
+    { nombre: "Asus Rog Strix Scar", categoria: "computadoras", descripcion: "Portátil gaming con excelente rendimiento.", imagen: "https://m.media-amazon.com/images/I/71sgAr9atBS._AC_SL1500_.jpg", precio: 2199 }
+];
+
+
+    function filterProducts(order) {
+        productos.sort((a, b) => order === 'asc' ? a.price - b.price : b.price - a.price);
+        renderProducts();
+    }
+
+    function addToCart(name, price, img) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push({ name, price, img });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(name + " " + (document.documentElement.lang === 'es' ? 'ha sido agregado al carrito.' : 'has been added to the cart.'));
+    }
+
+   function filtrarProductos() {
+    const category = document.getElementById('category-select').value.toLowerCase(); // Normalizar a minúsculas
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+
+    const resultados = productos.filter(producto => {
+        const coincideCategoria = category === "" || producto.categoria.toLowerCase() === category; // Comparar normalizando a minúsculas
+        const coincideNombre = producto.nombre.toLowerCase().includes(searchTerm);
+        return coincideCategoria && coincideNombre;
+    });
+
+    mostrarResultados(resultados);
+}
+
+
+    // Función para mostrar los resultados de búsqueda
+    function mostrarResultados(resultados) {
+        const resultsContainer = document.getElementById('product-results');
+        resultsContainer.innerHTML = "";
+
+        if (resultados.length > 0) {
+            resultados.forEach(producto => {
+                const productoDiv = document.createElement('div');
+                productoDiv.classList.add('producto');
+                productoDiv.innerHTML = `
+                    <img src="${producto.imagen}" alt="${producto.nombre}">
+                    <div class="producto-details">
+                        <h3>${producto.nombre}</h3>
+                        <p>${producto.descripcion || "Sin descripción disponible."}</p>
+                        <p><strong>$${producto.precio.toFixed(2)}</strong></p>
+                        <button class="btn" onclick="addToCart('${producto.nombre}', ${producto.precio}, '${producto.imagen}')">Agregar al carrito</button>
+                    </div>
+                `;
+                resultsContainer.appendChild(productoDiv);
+            });
+        } else {
+            resultsContainer.innerHTML = "<p>No se encontraron productos.</p>";
+        }
+    }
+
+    // Eventos de búsqueda
+    document.getElementById('search-button').addEventListener('click', function(event) {
+        event.preventDefault();
+        filtrarProductos();
+    });
+
+    document.getElementById('search-input').addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+            filtrarProductos();
+        }
+    });
+</script>
+  
+</body>
+</html>
+
+        
+    

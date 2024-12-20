@@ -1,42 +1,41 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.controller.technotic.control;
 
-/**
- *
- * @author sasuk
- */
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RestController;
 
-
-@Controller
+@RestController
 @RequestMapping("/comentarios")
 public class ComentarioController {
 
-    private final ComentarioRepository comentarioRepository;
+    @Autowired
+    private ComentarioRepository comentarioRepository;
 
-    public ComentarioController(ComentarioRepository comentarioRepository) {
-        this.comentarioRepository = comentarioRepository;
-    }
+    @PostMapping
+    public ResponseEntity<Map<String, Object>> guardarComentario(@RequestBody ComentarioRequest request) {
+        Map<String, Object> response = new HashMap<>();
 
-    @GetMapping("/centro")
-    public String mostrarFormulario(Model model) {
-        model.addAttribute("comentario", new Comentario());
-        return "centro_comentarios"; 
-    }
+        if (request.getNombreCompleto() == null || request.getCedula() == null || request.getCorreo() == null || request.getTexto() == null) {
+            response.put("success", false);
+            response.put("message", "Todos los campos son obligatorios.");
+            return ResponseEntity.badRequest().body(response);
+        }
 
-    @PostMapping("/enviar")
-    public String enviarComentario(@ModelAttribute Comentario comentario, Model model) {
-        comentarioRepository.save(comentario); 
-        model.addAttribute("mensaje", "Gracias por enviar tu comentario.");
-        return "centro_comentarios"; 
+        Comentario comentario = new Comentario();
+        comentario.setNombreCompleto(request.getNombreCompleto());
+        comentario.setCedula(request.getCedula());
+        comentario.setCorreo(request.getCorreo());
+        comentario.setTexto(request.getTexto());
+        comentarioRepository.save(comentario);
+
+        response.put("success", true);
+        response.put("message", "Comentario guardado exitosamente.");
+        return ResponseEntity.ok(response);
     }
 }
+

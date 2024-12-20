@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html th:lang="${#locale}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{cart.title}">Carrito de Compras - Techtonic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: linear-gradient(135deg, #5c258d, #4389a2);
+            color: #fff;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: #fff;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            color: #f8f8f8;
+            cursor: pointer;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 10px;
+        }
+
+        .nav-bar a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: transparent;
+            transition: background-color 0.3s, transform 0.2s ease-in-out;
+        }
+
+        .nav-bar a:hover {
+            background-color: #fff;
+            color: #333;
+            transform: translateY(-5px);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+
+        .cart-item p {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .cart-item .price {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .cart-item button {
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cart-item button:hover {
+            background-color: #e60000;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .pay-button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .pay-button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            color: #666;
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <a th:href="@{/home}" class="logo" th:text="#{site.name}">Techtonic</a>
+    <div class="nav-bar">
+        <a th:href="@{/computadoras}" th:text="#{nav.computadoras}">Computadoras</a>
+        <a th:href="@{/componentes}" th:text="#{nav.componentes}">Componentes</a>
+        <a th:href="@{/perifericos}" th:text="#{nav.perifericos}">Periféricos</a>
+        <a th:href="@{/accesorios}" th:text="#{nav.accesorios}">Accesorios</a>
+    </div>
+</header>
+<main>
+    <h1 th:text="#{cart.title}">Carrito de Compras</h1>
+    <div id="cart-container"></div>
+    <div class="total">
+        <span th:text="#{cart.total}">Total:</span> $<span id="total-price">0.00</span>
+    </div>
+    <a th:href="@{/pagar}" class="pay-button" th:text="#{cart.pay}">Pagar</a>
+</main>
+<footer>
+    <p th:text="#{footer.notice}">Condiciones de uso | Aviso © 2024 Techtonic.com, Inc.</p>
+</footer>
+<script>
+    let cart = [];
+    const cartContainer = document.getElementById('cart-container');
+    const totalPriceElement = document.getElementById('total-price');
+
+    window.onload = function() {
+        updateCart();
+    };
+
+    function updateCart() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartContainer = document.getElementById('cart-container');
+        const totalPriceElement = document.getElementById('total-price');
+
+        cartContainer.innerHTML = '';
+        let total = 0;
+
+        cart.forEach((item, index) => {
+            const cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+            cartItem.innerHTML = `
+                <img src="${item.image}" alt="${item.name}">
+                <p>${item.name}</p>
+                <p class="price">$${item.price}</p>
+                <button th:text="#{cart.remove}" onclick="removeFromCart(${index})">Eliminar</button>
+            `;
+            cartContainer.appendChild(cartItem);
+            total += item.price;
+        });
+
+        totalPriceElement.textContent = total.toFixed(2);
+    }
+
+    function addToCart(name, price, image) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.push({ name, price, image });
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+        updateCart();
+    }
+
+    function removeFromCart(index) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        cart.splice(index, 1);
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        updateCart();
+    }
+    document.getElementById('checkout-button').onclick = function() {
+        if (cart.length > 0) {
+            window.location.href = '/pagar.html';  
+        } else {
+            alert('Tu carrito está vacío. Añade productos antes de pagar.');
+        }
+    };
+</script>
+</body>
+</html>

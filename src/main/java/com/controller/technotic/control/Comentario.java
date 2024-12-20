@@ -1,30 +1,35 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.controller.technotic.control;
 
-/**
- *
- * @author sasuk
- */
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.security.Timestamp;
 
 @Entity
+@Table(name = "comentario")
 public class Comentario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombreCompleto;
+    @Column(name = "cedula", nullable = false)
     private String cedula;
+
+    @Column(name = "correo", nullable = false)
     private String correo;
-    private String comentario;
+
+    @Column(name = "nombre_completo", nullable = false)
+    private String nombreCompleto;
+
+    @Column(name = "texto", nullable = false)
+    private String texto;
+
+    @Column(name = "fecha")
+    private Timestamp fecha;
 
     public Long getId() {
         return id;
@@ -32,14 +37,6 @@ public class Comentario {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNombreCompleto() {
-        return nombreCompleto;
-    }
-
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
     }
 
     public String getCedula() {
@@ -58,11 +55,29 @@ public class Comentario {
         this.correo = correo;
     }
 
-    public String getComentario() {
-        return comentario;
+    public String getNombreCompleto() {
+        return nombreCompleto;
     }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
     }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+
+    public Timestamp getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Timestamp fecha) {
+        this.fecha = fecha;
+    }
+
+    
 }
